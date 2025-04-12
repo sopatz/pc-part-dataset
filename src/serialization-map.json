@@ -3,9 +3,9 @@
 		"Core Count": ["core_count", true],
 		"Performance Core Clock": ["core_clock", true],
 		"Performance Core Boost Clock": ["boost_clock", true],
+		"Microarchitecture": ["microarchitecture", false],
 		"TDP": ["tdp", true],
-		"Integrated Graphics": ["graphics", false],
-		"SMT": ["smt", false]
+		"Integrated Graphics": ["graphics", false]
 	},
 	"cpu-cooler": {
 		"Fan RPM": ["rpm", true],

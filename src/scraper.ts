@@ -62,6 +62,10 @@ async function scrapeInParallel(endpoints: PartType[]) {
 	await cluster.task(async ({ page, data: endpoint }) => {
 		await page.setViewport({ width: 1920, height: 1080 })
 
+		// await page.setUserAgent(
+		// 	'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+		// )
+
 		let fileName = endpoint
 		const allParts = []
 
@@ -83,10 +87,16 @@ async function scrapeInParallel(endpoints: PartType[]) {
 	})
 
 	cluster.queue('https://pcpartpicker.com', async ({ page, data }) => {
+		await page.setCookie({
+			name: 'cf_clearance',
+			value: 'get from dev options (ctrl+shift+j --> Application --> Cookies) on pcpartpicker website after passing bot check',
+			domain: '.pcpartpicker.com',
+			// optional: expires, path, etc.
+		})
 		const res = await page.goto(data)
 
 		try {
-			await page.waitForSelector('nav', { timeout: 5000 })
+			await page.waitForSelector('nav', { timeout: 50000 })
 		} catch {
 			console.error(
 				`Initial fetch test failed (HTTP ${
